@@ -30,31 +30,31 @@
             >
                 <li class="nav-item">
                     <a href="{{ route('dashboard.index') }}" class="nav-link">
-                        <i class="nav-icon fas fa-tachometer-alt"></i>
+                        <i class="nav-icon bi bi-house"></i>
                         <p>Dashboard</p>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-users"></i>
+                        <i class="nav-icon bi bi-people"></i>
                         <p>Usuários</p>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-cogs"></i>
+                        <i class="nav-icon bi bi-gear"></i>
                         <p>Configurações</p>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a href="{{ route('empresas.index') }}" class="nav-link">
-                        <i class="nav-icon fas fa-file-alt"></i>
+                        <i class="nav-icon bi bi-house-up-fill"></i>
                         <p>Empresas</p>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a href="{{ route('obrigacoes.create') }}" class="nav-link">
-                        <i class="nav-icon fas fa-check-circle"></i>
+                        <i class="nav-icon bi bi-file-earmark-text"></i>
                         <p>Gestão de Obrigações</p>
                     </a>
                 </li>

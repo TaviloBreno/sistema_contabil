@@ -32,7 +32,7 @@
                     </div>
 
                     <!-- CNPJ -->
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <label for="cnpj" class="form-label">CNPJ</label>
                         <input type="text" name="cnpj" id="cnpj" class="form-control" required>
                         <div class="invalid-feedback">Informe o CNPJ.</div>
@@ -51,19 +51,19 @@
                     </div>
 
                     <!-- Regime Tributário -->
-                    <div class="col-md-4">
+                    <div class="col-md-5">
                         <label for="regime_tributario" class="form-label">Regime Tributário</label>
                         <input type="text" name="regime_tributario" class="form-control" id="regime_tributario">
                     </div>
 
                     <!-- Sócios -->
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <label for="socios" class="form-label">Sócios (separados por vírgula)</label>
                         <input type="text" name="socios" class="form-control" id="socios">
                     </div>
 
                     <!-- Matriz -->
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <label for="matriz_id" class="form-label">Matriz (opcional)</label>
                         <select name="matriz_id" id="matriz_id" class="form-select">
                             <option value="">Selecionar</option>
@@ -77,8 +77,13 @@
             <!--end::Body-->
 
             <!--begin::Footer-->
-            <div class="card-footer text-end">
-                <button class="btn btn-info" type="submit">Salvar</button>
+            <div class="card-footer text-end d-flex justify-content-end gap-2">
+                <button class="btn btn-info" type="submit">
+                    <i class="bi bi-save me-1"></i> Salvar
+                </button>
+                <a href="{{ route('empresas.index') }}" class="btn btn-secondary">
+                    <i class="bi bi-x-circle me-1"></i> Cancelar
+                </a>
             </div>
             <!--end::Footer-->
         </form>
