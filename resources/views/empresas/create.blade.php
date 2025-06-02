@@ -32,9 +32,9 @@
                     </div>
 
                     <!-- CNPJ -->
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <label for="cnpj" class="form-label">CNPJ</label>
-                        <input type="text" name="cnpj" class="form-control" id="cnpj" required>
+                        <input type="text" name="cnpj" id="cnpj" class="form-control" required>
                         <div class="invalid-feedback">Informe o CNPJ.</div>
                     </div>
 
@@ -84,24 +84,5 @@
         </form>
         <!--end::Form-->
     </div>
-
-    <!--begin::JS de validação Bootstrap-->
-    @push('scripts')
-        <script>
-            (() => {
-                'use strict';
-                const forms = document.querySelectorAll('.needs-validation');
-                Array.from(forms).forEach(form => {
-                    form.addEventListener('submit', event => {
-                        if (!form.checkValidity()) {
-                            event.preventDefault();
-                            event.stopPropagation();
-                        }
-                        form.classList.add('was-validated');
-                    }, false);
-                });
-            })();
-        </script>
-    @endpush
 
 @endsection

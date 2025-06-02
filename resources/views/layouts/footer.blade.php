@@ -81,6 +81,7 @@
         integrity="sha256-XPpPaZlU8S/HWf7FZLAncLg2SAkP8ScUTII89x9D3lY="
         crossorigin="anonymous"
 ></script>
+<script src="{{ asset('adminlte/js/script.js') }}"></script>
 <!--end::Script-->
 </body>
 <!--end::Body-->
