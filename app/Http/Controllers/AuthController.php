@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\UsuarioRequest;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
@@ -18,19 +20,20 @@ class AuthController extends Controller
     {
         $credentials = $request->only('email', 'password');
 
-        $user = User::where('email', $credentials['email'])->first();
-
-        if (!$user || !Hash::check($credentials['password'], $user->password)) {
-            return back()->withErrors(['email' => 'Credenciais inválidas.']);
+        if (Auth::attempt($credentials)) {
+            $request->session()->regenerate(); // segurança: evita fixation
+            return redirect()->route('dashboard.index')->with('success', 'Login realizado com sucesso!');
         }
 
-        session(['user_id' => $user->id]);
-        return redirect('/dashboard');
+        return redirect()->back()->withErrors(['email' => 'Credenciais inválidas.'])->withInput();
     }
 
-    public function logout()
+    public function logout(Request $request)
     {
-        session()->forget('user_id');
-        return redirect('/login');
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect()->route('login');
     }
 }
