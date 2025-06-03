@@ -58,6 +58,12 @@
                         <p>Gestão de Obrigações</p>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="{{ route('documentos.index') }}" class="nav-link">
+                        <i class="nav-icon bi bi-file-earmark"></i>
+                        <p>Documentos</p>
+                    </a>
+                </li>
             </ul>
             <!--end::Sidebar Menu-->
         </nav>
