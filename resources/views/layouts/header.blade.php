@@ -58,6 +58,7 @@
         integrity="sha256-+uGLJmmTKOqBr+2E6KDYs/NRsHxSkONXFHUL0fy2O/4="
         crossorigin="anonymous"
     />
+    <link rel="stylesheet" href="{{ asset('adminlte/css/style.css') }}" />
 </head>
 <!--end::Head-->
 <!--begin::Body-->
@@ -251,7 +252,13 @@
                         <!--begin::Menu Footer-->
                         <li class="user-footer">
                             <a href="#" class="btn btn-default btn-flat">Profile</a>
-                            <a href="#" class="btn btn-default btn-flat float-end">Sign out</a>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: inline;">
+                                @csrf
+                                <button type="submit" class="btn btn-danger btn-sm">
+                                    <i class="bi bi-box-arrow-right"></i> Sair
+                                </button>
+                            </form>
+
                         </li>
                         <!--end::Menu Footer-->
                     </ul>

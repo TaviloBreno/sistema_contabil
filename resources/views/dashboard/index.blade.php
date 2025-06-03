@@ -4,8 +4,33 @@
 
 
 @section('content')
+
+    @if(session('success'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert" id="success-alert">
+            {{ session('success') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+
+        <script>
+            // Aguarda 10 segundos e remove o elemento do DOM
+            setTimeout(() => {
+                const alert = document.getElementById('success-alert');
+                if (alert) {
+                    // Primeiro, aplica a transição de fade
+                    alert.classList.remove('show');
+                    alert.classList.add('fade');
+                    alert.style.opacity = '0';
+
+                    // Depois de 300ms (duração da animação do Bootstrap), remove do DOM
+                    setTimeout(() => alert.remove(), 300);
+                }
+            }, 10000);
+        </script>
+    @endif
+
     <!--begin::App Content Header-->
     <div class="app-content-header">
+
         <!--begin::Container-->
         <div class="container-fluid">
             <!--begin::Row-->

@@ -53,7 +53,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('obrigacoes.create') }}" class="nav-link">
+                    <a href="{{ route('obrigacoes.index') }}" class="nav-link">
                         <i class="nav-icon bi bi-file-earmark-text"></i>
                         <p>Gestão de Obrigações</p>
                     </a>
