@@ -7,6 +7,7 @@ use App\Http\Controllers\EmpresaController;
 use App\Http\Controllers\ObrigacaoController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\DocumentoController;
+use App\Http\Controllers\RelatorioController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,4 +41,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/documentos', [DocumentoController::class, 'index'])->name('documentos.index');
     Route::post('/documentos', [DocumentoController::class, 'store'])->name('documentos.store');
     Route::get('/documentos/download/{documento}', [DocumentoController::class, 'download'])->name('documentos.download');
+
+    // Relatórios
+    Route::get('relatorios', [RelatorioController::class, 'index'])->name('relatorios.index');
+    Route::get('relatorios/exportar', [RelatorioController::class, 'exportarPdf'])->name('relatorios.exportarPdf');
 });

@@ -69,6 +69,12 @@
                         <p>Documentos</p>
                     </a>
                 </li>
+                <li class="nav-item {{ request()->routeIs('relatorios.*') ? 'active' : '' }}">
+                    <a href="{{ route('relatorios.index') }}" class="nav-link {{ request()->routeIs('relatorios.*') ? 'active' : '' }}">
+                        <i class="nav-icon bi bi-bar-chart"></i>
+                        <p>Relatórios e Indicadores</p>
+                    </a>
+                </li>
             </ul>
             <!--end::Sidebar Menu-->
         </nav>
