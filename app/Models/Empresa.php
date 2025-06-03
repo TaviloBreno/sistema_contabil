@@ -33,4 +33,9 @@ class Empresa extends Model
     {
         return $this->hasMany(Empresa::class, 'matriz_id');
     }
+
+    public function obrigacoes()
+    {
+        return $this->hasMany(Obrigacao::class);
+    }
 }
