@@ -4,18 +4,21 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Http\Requests\UsuarioRequest;
+use Illuminate\Support\Facades\Hash;
+
 
 class UserController extends Controller
 {
     public function index()
     {
         $usuarios = User::orderBy('name')->paginate(10);
-        return view('usuarios.index', compact('usuarios'));
+        return view('users.index', compact('usuarios'));
     }
 
     public function create()
     {
-        return view('usuarios.create');
+        return view('users.create');
     }
 
     public function store(UsuarioRequest $request)
@@ -32,12 +35,12 @@ class UserController extends Controller
 
     public function show(User $usuario)
     {
-        return view('usuarios.show', compact('usuario'));
+        return view('users.show', compact('usuario'));
     }
 
     public function edit(User $usuario)
     {
-        return view('usuarios.edit', compact('usuario'));
+        return view('users.edit', compact('usuario'));
     }
 
     public function update(UsuarioRequest $request, User $usuario)
@@ -52,7 +55,7 @@ class UserController extends Controller
             $usuario->update(['password' => Hash::make($request->password)]);
         }
 
-        return redirect()->route('usuarios.index')->with('success', 'Usuário atualizado com sucesso!');
+        return redirect()->route('users.index')->with('success', 'Usuário atualizado com sucesso!');
     }
 
     public function destroy(User $usuario)

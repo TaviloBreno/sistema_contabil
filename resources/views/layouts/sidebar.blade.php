@@ -35,7 +35,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="{{ route('usuarios.index')  }}" class="nav-link">
                         <i class="nav-icon bi bi-people"></i>
                         <p>Usuários</p>
                     </a>

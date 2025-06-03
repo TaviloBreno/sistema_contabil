@@ -3,19 +3,21 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Obrigacao;
+use App\Models\Empresa;
 
 class ObrigacaoController extends Controller
 {
     public function index()
     {
         $obrigacoes = Obrigacao::with('empresa')->orderByDesc('data_vencimento')->paginate(10);
-        return view('obrigacoes.index', compact('obrigacoes'));
+        return view('gestaoObrigacoes.index', compact('obrigacoes'));
     }
 
     public function create()
     {
         $empresas = Empresa::orderBy('razao_social')->get();
-        return view('obrigacoes.create', compact('empresas'));
+        return view('gestaoObrigacoes.create', compact('empresas'));
     }
 
     // Salvar nova obrigação
