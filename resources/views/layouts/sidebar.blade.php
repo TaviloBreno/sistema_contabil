@@ -28,38 +28,43 @@
                     role="menu"
                     data-accordion="false"
             >
-                <li class="nav-item">
-                    <a href="{{ route('dashboard.index') }}" class="nav-link">
+                <li class="nav-item {{ request()->routeIs('dashboard.index') ? 'active' : '' }}">
+                    <a href="{{ route('dashboard.index') }}" class="nav-link {{ request()->routeIs('dashboard.index') ? 'active' : '' }}">
                         <i class="nav-icon bi bi-house"></i>
                         <p>Dashboard</p>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a href="{{ route('usuarios.index')  }}" class="nav-link">
+
+                <li class="nav-item {{ request()->routeIs('usuarios.*') ? 'active' : '' }}">
+                    <a href="{{ route('usuarios.index') }}" class="nav-link {{ request()->routeIs('usuarios.*') ? 'active' : '' }}">
                         <i class="nav-icon bi bi-people"></i>
                         <p>Usuários</p>
                     </a>
                 </li>
+
                 <li class="nav-item">
                     <a href="#" class="nav-link">
                         <i class="nav-icon bi bi-gear"></i>
                         <p>Configurações</p>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a href="{{ route('empresas.index') }}" class="nav-link">
+
+                <li class="nav-item {{ request()->routeIs('empresas.*') ? 'active' : '' }}">
+                    <a href="{{ route('empresas.index') }}" class="nav-link {{ request()->routeIs('empresas.*') ? 'active' : '' }}">
                         <i class="nav-icon bi bi-house-up-fill"></i>
                         <p>Empresas</p>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a href="{{ route('obrigacoes.index') }}" class="nav-link">
+
+                <li class="nav-item {{ request()->routeIs('obrigacoes.*') ? 'active' : '' }}">
+                    <a href="{{ route('obrigacoes.index') }}" class="nav-link {{ request()->routeIs('obrigacoes.*') ? 'active' : '' }}">
                         <i class="nav-icon bi bi-file-earmark-text"></i>
                         <p>Gestão de Obrigações</p>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a href="{{ route('documentos.index') }}" class="nav-link">
+
+                <li class="nav-item {{ request()->routeIs('documentos.*') ? 'active' : '' }}">
+                    <a href="{{ route('documentos.index') }}" class="nav-link {{ request()->routeIs('documentos.*') ? 'active' : '' }}">
                         <i class="nav-icon bi bi-file-earmark"></i>
                         <p>Documentos</p>
                     </a>
