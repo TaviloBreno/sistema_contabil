@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Empresa;
 use Illuminate\Http\Request;
+use App\Models\User;
 
 class DashboardController extends Controller
 {
@@ -17,6 +18,7 @@ class DashboardController extends Controller
             'title' => 'Dashboard',
             'description' => 'Bem-vindo ao painel de controle.',
             'numberOfCompaniesRegistered' => $this->empresa->count(),
+            'totalRegistredUsers' => User::count(),
         ];
 
         return view('dashboard.index', $data);

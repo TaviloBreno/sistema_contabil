@@ -67,8 +67,8 @@
                     <!--begin::Small Box Widget 2-->
                     <div class="small-box text-bg-success">
                         <div class="inner">
-                            <h3>53<sup class="fs-5">%</sup></h3>
-                            <p>Bounce Rate</p>
+                            <h3>{{ $totalRegistredUsers }}</h3>
+                            <p>Total de usuários cadastrados</p>
                         </div>
                         <svg
                             class="small-box-icon"
@@ -85,7 +85,7 @@
                             href="#"
                             class="small-box-footer link-light link-underline-opacity-0 link-underline-opacity-50-hover"
                         >
-                            More info <i class="bi bi-link-45deg"></i>
+                            Mais informações <i class="bi bi-arrow-right-circle"></i>
                         </a>
                     </div>
                     <!--end::Small Box Widget 2-->
