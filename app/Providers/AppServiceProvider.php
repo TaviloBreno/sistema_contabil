@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Pagination\Paginator;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -24,5 +25,7 @@ class AppServiceProvider extends ServiceProvider
             'defaultPaperSize' => 'A4',
             'dpi' => 150,
         ]);
+
+        Paginator::useBootstrapFive();
     }
 }

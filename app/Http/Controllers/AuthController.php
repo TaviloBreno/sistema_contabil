@@ -20,12 +20,13 @@ class AuthController extends Controller
     {
         $credentials = $request->only('email', 'password');
 
+
         if (Auth::attempt($credentials)) {
-            $request->session()->regenerate(); // segurança: evita fixation
+            $request->session()->regenerate();
             return redirect()->route('dashboard.index')->with('success', 'Login realizado com sucesso!');
         }
 
-        return redirect()->back()->withErrors(['email' => 'Credenciais inválidas.'])->withInput();
+        return redirect()->back()->withErrors(['erro' => 'Credenciais inválidas.'])->withInput();
     }
 
     public function logout(Request $request)

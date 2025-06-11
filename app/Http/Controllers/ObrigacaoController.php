@@ -10,7 +10,10 @@ class ObrigacaoController extends Controller
 {
     public function index()
     {
-        $obrigacoes = Obrigacao::with('empresa')->orderByDesc('data_vencimento')->paginate(10);
+        $obrigacoes = Obrigacao::with('empresa')
+            ->orderByDesc('data_vencimento')
+            ->paginate(10);
+
         return view('gestaoObrigacoes.index', compact('obrigacoes'));
     }
 
