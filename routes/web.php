@@ -9,6 +9,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\DocumentoController;
 use App\Http\Controllers\RelatorioController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Http\Controllers\ConfiguracaoSistemaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -48,4 +49,8 @@ Route::middleware(['auth'])->group(function () {
     // Relatórios
     Route::get('relatorios', [RelatorioController::class, 'index'])->name('relatorios.index');
     Route::get('relatorios/exportar', [RelatorioController::class, 'exportarPdf'])->name('relatorios.exportarPdf');
+
+    // Configurações do sistema
+    Route::get('/configuracoes', [ConfiguracaoSistemaController::class, 'index'])->name('configuracoes.index');
+    Route::post('/configuracoes', [ConfiguracaoSistemaController::class, 'store'])->name('configuracoes.store');
 });

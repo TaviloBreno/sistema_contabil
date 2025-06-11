@@ -8,14 +8,32 @@ use App\Models\Empresa;
 
 class ObrigacaoController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $obrigacoes = Obrigacao::with('empresa')
-            ->orderByDesc('data_vencimento')
-            ->paginate(10);
+        $query = Obrigacao::with('empresa')->orderByDesc('data_vencimento');
 
-        return view('gestaoObrigacoes.index', compact('obrigacoes'));
+        if ($request->filled('tipo')) {
+            $query->where('tipo', 'like', '%' . $request->tipo . '%');
+        }
+
+        if ($request->filled('frequencia')) {
+            $query->where('frequencia', $request->frequencia);
+        }
+
+        if ($request->filled('status')) {
+            $query->where('status', $request->status);
+        }
+
+        if ($request->filled('empresa_id')) {
+            $query->where('empresa_id', $request->empresa_id);
+        }
+
+        $obrigacoes = $query->paginate(10)->withQueryString();
+        $empresas = Empresa::orderBy('razao_social')->get();
+
+        return view('gestaoObrigacoes.index', compact('obrigacoes', 'empresas'));
     }
+
 
     public function create()
     {

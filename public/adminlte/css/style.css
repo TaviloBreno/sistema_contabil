@@ -9,3 +9,33 @@
     border-radius: 50%;
     border: 3px solid white;
 }
+
+/* Marca de bolinha na linha do tempo */
+.timeline-item {
+    position: relative;
+    padding-left: 1.5rem;
+    border-left: 4px solid #0d6efd;
+    background-color: #fff;
+    border-radius: 4px;
+}
+
+.timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -11px;
+    top: 6px;
+    width: 16px;
+    height: 16px;
+    background-color: #0d6efd;
+    border-radius: 50%;
+    border: 3px solid #fff;
+    z-index: 1;
+}
+
+/* Evita sobreposição em mobile */
+@media (max-width: 768px) {
+    .timeline-item {
+        margin-bottom: 1.5rem;
+    }
+}
+
