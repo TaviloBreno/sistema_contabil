@@ -76,6 +76,7 @@
     crossorigin="anonymous"></script>
 <script src="{{ asset('adminlte/js/script.js') }}"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" crossorigin="anonymous">
+<script src="{{ asset('adminlte/js/consultacnpj.js') }}"></script>
 <!--end::Script-->
 </body>
 <!--end::Body-->

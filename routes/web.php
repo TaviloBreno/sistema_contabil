@@ -53,4 +53,7 @@ Route::middleware(['auth'])->group(function () {
     // Configurações do sistema
     Route::get('/configuracoes', [ConfiguracaoSistemaController::class, 'index'])->name('configuracoes.index');
     Route::post('/configuracoes', [ConfiguracaoSistemaController::class, 'store'])->name('configuracoes.store');
+
+    // Consultar CNPJ
+    Route::get('/consulta-cnpj', [EmpresaController::class, 'consultarCNPJ'])->name('empresas.consultarCNPJ');
 });
