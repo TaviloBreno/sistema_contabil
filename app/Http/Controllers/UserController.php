@@ -35,12 +35,13 @@ class UserController extends Controller
 
     public function show(User $usuario)
     {
-        $user = $usuario->load('obrigacoes');
-        return view('users.show', compact('user'));
+        $usuario = User::with('obrigacoes')->findOrFail($usuario->id);
+        return view('users.show', compact('usuario'));
     }
 
     public function edit(User $usuario)
     {
+        $usuario->load('obrigacoes');
         return view('users.edit', compact('usuario'));
     }
 
@@ -56,7 +57,7 @@ class UserController extends Controller
             $usuario->update(['password' => Hash::make($request->password)]);
         }
 
-        return redirect()->route('users.index')->with('success', 'Usuário atualizado com sucesso!');
+        return redirect()->route('usuarios.index')->with('success', 'Usuário atualizado com sucesso!');
     }
 
     public function destroy(User $usuario)
