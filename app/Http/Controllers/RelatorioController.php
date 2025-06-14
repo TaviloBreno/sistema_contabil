@@ -88,4 +88,13 @@ class RelatorioController extends Controller
 
         return $pdf->download('relatorio_obrigacoes.pdf');
     }
+
+    public function grafico()
+    {
+        // Gerar dados do gráfico (exemplo simples)
+        return response()->json([
+            'labels' => ['Pendente', 'Em Andamento', 'Concluída'],
+            'data' => [10, 5, 7]
+        ]);
+    }
 }

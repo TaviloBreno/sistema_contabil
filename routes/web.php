@@ -52,6 +52,7 @@ Route::middleware(['auth'])->group(function () {
     // Relatórios
     Route::get('relatorios', [RelatorioController::class, 'index'])->name('relatorios.index');
     Route::get('relatorios/exportar', [RelatorioController::class, 'exportarPdf'])->name('relatorios.exportarPdf');
+    Route::get('/relatorios/grafico', [RelatorioController::class, 'grafico'])->name('relatorios.grafico');
 
     // Configurações do sistema
     Route::get('/configuracoes', [ConfiguracaoSistemaController::class, 'index'])->name('configuracoes.index');
