@@ -82,4 +82,18 @@ class DocumentoController extends Controller
     {
         //
     }
-}
+
+    /**
+     * Download the specified document.
+     */
+    public function download(Documento $documento)
+    {
+        $caminhoCompleto = storage_path('app/' . $documento->caminho_arquivo);
+        if (!file_exists($caminhoCompleto)) {
+            return back()->withErrors(['arquivo' => 'Arquivo não encontrado.']);
+        }
+
+            return response()->download($caminhoCompleto);
+        }
+    }
+
