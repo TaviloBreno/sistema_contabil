@@ -50,6 +50,11 @@ class EmpresaController extends Controller
         }
     }
 
+    public function show(Empresa $empresa)
+    {
+        $empresa->load(['matriz', 'filiais', 'obrigacoes']);
+        return view('empresas.show', compact('empresa'));
+    }
 
     public function edit(Empresa $empresa)
     {
