@@ -35,7 +35,8 @@ class UserController extends Controller
 
     public function show(User $usuario)
     {
-        return view('users.show', compact('usuario'));
+        $user = $usuario->load('obrigacoes');
+        return view('users.show', compact('user'));
     }
 
     public function edit(User $usuario)

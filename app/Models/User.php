@@ -6,6 +6,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use App\Models\Obrigacao;
 
 
 class User extends Authenticatable
@@ -58,4 +59,8 @@ class User extends Authenticatable
         return $this->role === 'operador';
     }
 
+    public function obrigacoes()
+    {
+        return $this->hasMany(Obrigacao::class);
+    }
 }

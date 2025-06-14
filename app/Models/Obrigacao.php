@@ -26,4 +26,9 @@ class Obrigacao extends Model
     {
         return $this->belongsTo(Empresa::class);
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
