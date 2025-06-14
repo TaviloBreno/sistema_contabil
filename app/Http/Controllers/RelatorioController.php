@@ -9,6 +9,8 @@ use Carbon\Carbon;
 
 class RelatorioController extends Controller
 {
+    public $obrigacao;
+
     public function __construct(Obrigacao $obrigacao)
     {
         $this->obrigacao = $obrigacao;
