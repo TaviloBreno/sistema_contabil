@@ -26,8 +26,34 @@ class EmpresaController extends Controller
 
     public function store(EmpresaRequest $request)
     {
-        Empresa::create($request->validated());
-        return redirect()->route('empresas.index')->with('success', 'Empresa cadastrada com sucesso.');
+        try {
+            $validated = $request->validated();
+
+            if (Empresa::where('cnpj', $validated['cnpj'])->exists()) {
+                return back()->withInput()->withErrors(['cnpj' => 'CNPJ já cadastrado']);
+            }
+
+            if (!empty($validated['matriz_id'])) {
+                $matriz = Empresa::whereNull('matriz_id')->find($validated['matriz_id']);
+                if (!$matriz) {
+                    return back()->withInput()->withErrors(['matriz_id' => 'Matriz inválida']);
+                }
+            }
+
+            Empresa::create($validated);
+
+            return redirect()->route('empresas.index')
+                ->with('success', 'Empresa cadastrada com sucesso!');
+        } catch (\Exception $e) {
+            return back()->withInput()
+                ->with('error', 'Erro ao salvar: ' . $e->getMessage());
+        }
+    }
+
+    public function show(Empresa $empresa)
+    {
+        $empresa->load(['matriz', 'filiais', 'obrigacoes']);
+        return view('empresas.show', compact('empresa'));
     }
 
     public function edit(Empresa $empresa)

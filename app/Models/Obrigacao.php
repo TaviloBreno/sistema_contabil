@@ -17,13 +17,23 @@ class Obrigacao extends Model
         'frequencia',
         'data_inicio',
         'data_vencimento',
-        'data_conclusao',
         'status',
-        'observacoes'
+        'observacoes',
+        'user_id',
     ];
 
     public function empresa()
     {
         return $this->belongsTo(Empresa::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function getRouteKeyName()
+    {
+        return 'id';
     }
 }

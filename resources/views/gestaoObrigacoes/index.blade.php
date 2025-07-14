@@ -70,7 +70,9 @@
                         <i class="bi bi-calendar3"></i>
                         {{ $obrigacao->created_at->format('d/m/Y H:i') }}
                     </div>
-                    <h5 class="fw-bold mb-1">{{ $obrigacao->tipo ?? 'Tipo não informado' }}</h5>
+                    <h5 class="fw-bold mb-1">
+                        {{ $obrigacao->tipo ?? 'Tipo não informado' }}
+                    </h5>
                     <p class="mb-0 text-secondary">
                         Frequência: <strong>{{ ucfirst($obrigacao->frequencia) }}</strong><br>
                         Vencimento: <strong>{{ \Carbon\Carbon::parse($obrigacao->data_vencimento)->format('d/m/Y') }}</strong><br>
@@ -79,6 +81,23 @@
                     @if($obrigacao->empresa)
                     <span class="badge bg-secondary mt-2">{{ $obrigacao->empresa->razao_social }}</span>
                     @endif
+
+                    {{-- Ações --}}
+                    <div class="mt-3 d-flex gap-2">
+                        <a href="{{ route('obrigacoes.show', $obrigacao) }}" class="btn btn-sm btn-outline-primary">
+                            <i class="bi bi-eye"></i>
+                        </a>
+                        <a href="{{ route('obrigacoes.edit', $obrigacao) }}" class="btn btn-sm btn-outline-success">
+                            <i class="bi bi-pencil"></i>
+                        </a>
+                        <form action="{{ route('obrigacoes.destroy', $obrigacao) }}" method="POST" onsubmit="return confirm('Deseja excluir esta obrigação?')">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-sm btn-outline-danger">
+                                <i class="bi bi-trash"></i>
+                            </button>
+                        </form>
+                    </div>
                 </div>
                 @endforeach
             </div>

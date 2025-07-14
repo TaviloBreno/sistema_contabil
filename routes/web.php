@@ -37,7 +37,10 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('empresas', EmpresaController::class);
 
     // Obrigações
-    Route::resource('obrigacoes', ObrigacaoController::class);
+    Route::resource('obrigacoes', ObrigacaoController::class)->parameters([
+        'obrigacoes' => 'obrigacao'
+    ]);
+
 
     // Usuários do sistema
     Route::resource('usuarios', UserController::class);
@@ -50,6 +53,7 @@ Route::middleware(['auth'])->group(function () {
     // Relatórios
     Route::get('relatorios', [RelatorioController::class, 'index'])->name('relatorios.index');
     Route::get('relatorios/exportar', [RelatorioController::class, 'exportarPdf'])->name('relatorios.exportarPdf');
+    Route::get('/relatorios/grafico', [RelatorioController::class, 'grafico'])->name('relatorios.grafico');
 
     // Configurações do sistema
     Route::get('/configuracoes', [ConfiguracaoSistemaController::class, 'index'])->name('configuracoes.index');
