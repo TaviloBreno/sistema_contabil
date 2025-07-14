@@ -13,7 +13,10 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        User::truncate(); // Limpa a tabela (somente para desenvolvimento)
+        // Verificar se já existem usuários antes de criar
+        if (User::count() > 0) {
+            return; // Já existem usuários, não criar novos
+        }
 
         User::create([
             'name' => 'Admin Master',

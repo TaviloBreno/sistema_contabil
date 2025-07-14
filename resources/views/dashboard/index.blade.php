@@ -179,7 +179,105 @@
                     <!--end::Small Box Widget 4-->
                 </div>
                 <!--end::Col-->
+                <div class="col-lg-3 col-6">
+                    <!--begin::Small Box Widget - Notas Fiscais-->
+                    <div class="small-box text-bg-info">
+                        <div class="inner">
+                            <h3>{{ $totalNotasFiscais }}</h3>
+                            <p>Notas Fiscais</p>
+                        </div>
+                        <svg
+                            class="small-box-icon"
+                            fill="currentColor"
+                            viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg"
+                            aria-hidden="true"
+                        >
+                            <path
+                                d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"
+                            ></path>
+                        </svg>
+                        <a
+                            href="{{ route('notas-fiscais.index') }}"
+                            class="small-box-footer link-light link-underline-opacity-0 link-underline-opacity-50-hover"
+                        >
+                            Mais informações <i class="bi bi-arrow-right-circle"></i>
+                        </a>
+                    </div>
+                    <!--end::Small Box Widget - Notas Fiscais-->
+                </div>
+                <!--end::Col-->
             </div>
+
+            <!--begin::Row - Estatísticas Notas Fiscais-->
+            <div class="row mt-4">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">
+                                <i class="fas fa-file-invoice"></i> Estatísticas de Notas Fiscais - {{ now()->format('m/Y') }}
+                            </h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-lg-3 col-6">
+                                    <div class="info-box">
+                                        <span class="info-box-icon bg-primary"><i class="fas fa-file-invoice"></i></span>
+                                        <div class="info-box-content">
+                                            <span class="info-box-text">Notas do Mês</span>
+                                            <span class="info-box-number">{{ $notasFiscaisDoMes }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-3 col-6">
+                                    <div class="info-box">
+                                        <span class="info-box-icon bg-success"><i class="fas fa-check-circle"></i></span>
+                                        <div class="info-box-content">
+                                            <span class="info-box-text">Autorizadas</span>
+                                            <span class="info-box-number">{{ $notasAutorizadas }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-3 col-6">
+                                    <div class="info-box">
+                                        <span class="info-box-icon bg-warning"><i class="fas fa-edit"></i></span>
+                                        <div class="info-box-content">
+                                            <span class="info-box-text">Rascunhos</span>
+                                            <span class="info-box-number">{{ $notasRascunho }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-3 col-6">
+                                    <div class="info-box">
+                                        <span class="info-box-icon bg-info"><i class="fas fa-dollar-sign"></i></span>
+                                        <div class="info-box-content">
+                                            <span class="info-box-text">Valor Total</span>
+                                            <span class="info-box-number">R$ {{ number_format($valorTotalDoMes, 2, ',', '.') }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row mt-3">
+                                <div class="col-6">
+                                    <a href="{{ route('notas-fiscais.create') }}" class="btn btn-primary">
+                                        <i class="fas fa-plus"></i> Nova Nota Fiscal
+                                    </a>
+                                </div>
+                                <div class="col-6 text-right">
+                                    <a href="{{ route('notas-fiscais.index') }}" class="btn btn-outline-primary">
+                                        <i class="fas fa-list"></i> Ver Todas as Notas
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--end::Row - Estatísticas Notas Fiscais-->
         </div>
         <!--end::Container-->
     </div>

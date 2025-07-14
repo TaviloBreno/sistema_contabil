@@ -75,6 +75,13 @@
                         <p>Relatórios e Indicadores</p>
                     </a>
                 </li>
+
+                <li class="nav-item {{ request()->routeIs('notas-fiscais.*') ? 'active' : '' }}">
+                    <a href="{{ route('notas-fiscais.index') }}" class="nav-link {{ request()->routeIs('notas-fiscais.*') ? 'active' : '' }}">
+                        <i class="nav-icon bi bi-receipt"></i>
+                        <p>Notas Fiscais</p>
+                    </a>
+                </li>
             </ul>
             <!--end::Sidebar Menu-->
         </nav>

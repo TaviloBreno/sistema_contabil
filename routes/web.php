@@ -10,6 +10,7 @@ use App\Http\Controllers\DocumentoController;
 use App\Http\Controllers\RelatorioController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\ConfiguracaoSistemaController;
+use App\Http\Controllers\NotaFiscalController;
 
 /*
 |--------------------------------------------------------------------------
@@ -56,4 +57,20 @@ Route::middleware(['auth'])->group(function () {
 
     // Consultar CNPJ
     Route::get('/consulta-cnpj', [EmpresaController::class, 'consultarCNPJ'])->name('empresas.consultarCNPJ');
+
+    Route::get('/relatorios/grafico', [RelatorioController::class, 'grafico'])->name('relatorios.grafico');
+
+    // Notas Fiscais
+    Route::resource('notas-fiscais', NotaFiscalController::class);
+    Route::post('/notas-fiscais/{notaFiscal}/autorizar', [NotaFiscalController::class, 'autorizar'])->name('notas-fiscais.autorizar');
+    Route::post('/notas-fiscais/{notaFiscal}/cancelar', [NotaFiscalController::class, 'cancelar'])->name('notas-fiscais.cancelar');
+    Route::get('/notas-fiscais/{notaFiscal}/xml', [NotaFiscalController::class, 'xml'])->name('notas-fiscais.xml');
+    Route::get('/notas-fiscais/{notaFiscal}/danfe', [NotaFiscalController::class, 'danfe'])->name('notas-fiscais.danfe');
+
+    // API para Notas Fiscais
+    Route::prefix('api')->group(function () {
+        Route::get('/notas-fiscais/proximo-numero', [App\Http\Controllers\Api\NotaFiscalApiController::class, 'proximoNumero'])->name('api.notas-fiscais.proximo-numero');
+        Route::get('/notas-fiscais/{notaFiscal}/status', [App\Http\Controllers\Api\NotaFiscalApiController::class, 'consultarStatus'])->name('api.notas-fiscais.status');
+        Route::get('/notas-fiscais/estatisticas', [App\Http\Controllers\Api\NotaFiscalApiController::class, 'estatisticas'])->name('api.notas-fiscais.estatisticas');
+    });
 });

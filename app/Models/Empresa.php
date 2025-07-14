@@ -38,4 +38,9 @@ class Empresa extends Model
     {
         return $this->hasMany(Obrigacao::class);
     }
+
+    public function notasFiscais()
+    {
+        return $this->hasMany(NotaFiscal::class);
+    }
 }
