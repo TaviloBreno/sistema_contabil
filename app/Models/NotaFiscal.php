@@ -6,10 +6,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\Activitylog\LogOptions;
 
 class NotaFiscal extends Model
 {
-    use HasFactory;
+    use HasFactory, LogsActivity;
 
     protected $table = 'notas_fiscais';
 
@@ -163,5 +165,13 @@ class NotaFiscal extends Model
             + $this->valor_outras_despesas
             + $this->valor_ipi
             - $this->valor_desconto;
+    }
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->logOnly(['numero_nf', 'serie', 'status', 'valor_total', 'destinatario_nome'])
+            ->logOnlyDirty()
+            ->dontSubmitEmptyLogs();
     }
 }

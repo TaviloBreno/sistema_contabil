@@ -1,53 +1,223 @@
-@extends('app')
-
-@section('title', 'Documentos')
+@extends('layouts.app')
 
 @section('content')
-    <div class="container">
-        <h1 class="mb-4">Upload de Documentos</h1>
-
-        {{-- Formulário de Envio --}}
-        <div class="card shadow-sm mb-4">
-            <div class="card-body">
-                <form action="{{ route('documentos.store') }}" method="POST" enctype="multipart/form-data">
-                    @csrf
-
-                    <div class="mb-3">
-                        <label for="empresa_id" class="form-label fw-semibold">Empresa <span class="text-danger">*</span></label>
-                        <select name="empresa_id" id="empresa_id" class="form-select" required>
-                            <option value="" disabled selected>Selecione a empresa</option>
-                            @foreach($empresas as $empresa)
-                                <option value="{{ $empresa->id }}">{{ $empresa->razao_social }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="obrigacao_id" class="form-label">Obrigação</label>
-                        <select name="obrigacao_id" id="obrigacao_id" class="form-select">
-                            <option value="">Sem obrigação</option>
-                            @foreach($obrigacoes as $obrigacao)
-                                <option value="{{ $obrigacao->id }}">{{ $obrigacao->tipo }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="arquivo" class="form-label fw-semibold">Arquivo <span class="text-danger">*</span></label>
-                        <input type="file" name="arquivo" id="arquivo" class="form-control" required>
-                    </div>
-
-                    <button type="submit" class="btn btn-primary w-100">
-                        <i class="bi bi-upload"></i> Enviar Documento
-                    </button>
-                </form>
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0">Novo Documento</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Home</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('documentos.index') }}">Documentos</a></li>
+                    <li class="breadcrumb-item active">Novo</li>
+                </ol>
             </div>
         </div>
+    </div>
+</div>
 
-        {{-- Alerta de sucesso --}}
-        @if(session('success'))
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                {{ session('success') }}
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Enviar Documento</h3>
+                    </div>
+                    <form method="POST" action="{{ route('documentos.store') }}" enctype="multipart/form-data">
+                        @csrf
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="arquivo">Arquivo <span class="text-danger">*</span></label>
+                                        <input type="file" name="arquivo" class="form-control @error('arquivo') is-invalid @enderror" required>
+                                        @error('arquivo')
+                                        <span class="invalid-feedback">{{ $message }}</span>
+                                        @enderror
+                                        <small class="form-text text-muted">
+                                            Tipos permitidos: PDF, XML, Excel, Word, Imagens, ZIP, TXT, CSV (Max: 10MB)
+                                        </small>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="categoria">Categoria <span class="text-danger">*</span></label>
+                                        <select name="categoria" class="form-control @error('categoria') is-invalid @enderror" required>
+                                            <option value="">Selecione...</option>
+                                            @foreach($categorias as $key => $nome)
+                                                <option value="{{ $key }}" {{ old('categoria') == $key ? 'selected' : '' }}>
+                                                    {{ $nome }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                        @error('categoria')
+                                        <span class="invalid-feedback">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="empresa_id">Empresa <span class="text-danger">*</span></label>
+                                        <select name="empresa_id" class="form-control @error('empresa_id') is-invalid @enderror" required>
+                                            <option value="">Selecione uma empresa...</option>
+                                            @foreach($empresas as $empresa)
+                                                <option value="{{ $empresa->id }}" {{ old('empresa_id') == $empresa->id ? 'selected' : '' }}>
+                                                    {{ $empresa->razao_social }} - {{ $empresa->cnpj }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                        @error('empresa_id')
+                                        <span class="invalid-feedback">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="descricao">Descrição</label>
+                                        <textarea name="descricao" class="form-control @error('descricao') is-invalid @enderror" rows="3" placeholder="Descrição do documento...">{{ old('descricao') }}</textarea>
+                                        @error('descricao')
+                                        <span class="invalid-feedback">{{ $message }}</span>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label for="tags">Tags</label>
+                                        <input type="text" name="tags" class="form-control @error('tags') is-invalid @enderror"
+                                               placeholder="Ex: fiscal, contrato, licença (separadas por vírgula)" value="{{ old('tags') }}">
+                                        @error('tags')
+                                        <span class="invalid-feedback">{{ $message }}</span>
+                                        @enderror
+                                        <small class="form-text text-muted">
+                                            Separe as tags com vírgula para facilitar a busca
+                                        </small>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Vinculação opcional -->
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h5>Vinculação (Opcional)</h5>
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="form-group">
+                                                <label for="vinculo_tipo">Vincular a:</label>
+                                                <select name="vinculo_tipo" id="vinculo_tipo" class="form-control">
+                                                    <option value="">Não vincular</option>
+                                                    <option value="obrigacao">Obrigação</option>
+                                                    <option value="nota_fiscal">Nota Fiscal</option>
+                                                </select>
+                                            </div>
+
+                                            <div class="form-group" id="vinculo_obrigacao" style="display: none;">
+                                                <label for="obrigacao_id">Obrigação:</label>
+                                                <select name="obrigacao_id" class="form-control">
+                                                    <option value="">Selecione...</option>
+                                                    <!-- Carregado via AJAX -->
+                                                </select>
+                                            </div>
+
+                                            <div class="form-group" id="vinculo_nota_fiscal" style="display: none;">
+                                                <label for="nota_fiscal_id">Nota Fiscal:</label>
+                                                <select name="nota_fiscal_id" class="form-control">
+                                                    <option value="">Selecione...</option>
+                                                    <!-- Carregado via AJAX -->
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-upload"></i> Enviar Documento
+                            </button>
+                            <a href="{{ route('documentos.index') }}" class="btn btn-secondary">
+                                <i class="fas fa-times"></i> Cancelar
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@endsection
+
+@section('scripts')
+<script>
+$(document).ready(function() {
+    $('#vinculo_tipo').change(function() {
+        var tipo = $(this).val();
+
+        // Esconder todos os campos de vínculo
+        $('#vinculo_obrigacao, #vinculo_nota_fiscal').hide();
+
+        if (tipo === 'obrigacao') {
+            $('#vinculo_obrigacao').show();
+            carregarObrigacoes();
+        } else if (tipo === 'nota_fiscal') {
+            $('#vinculo_nota_fiscal').show();
+            carregarNotasFiscais();
+        }
+    });
+
+    function carregarObrigacoes() {
+        var empresaId = $('select[name="empresa_id"]').val();
+        if (!empresaId) return;
+
+        $.get('/api/obrigacoes', {empresa_id: empresaId}, function(data) {
+            var select = $('select[name="obrigacao_id"]');
+            select.empty().append('<option value="">Selecione...</option>');
+
+            data.forEach(function(obrigacao) {
+                select.append('<option value="' + obrigacao.id + '">' + obrigacao.nome + ' - ' + obrigacao.vencimento + '</option>');
+            });
+        });
+    }
+
+    function carregarNotasFiscais() {
+        var empresaId = $('select[name="empresa_id"]').val();
+        if (!empresaId) return;
+
+        $.get('/api/notas-fiscais', {empresa_id: empresaId}, function(data) {
+            var select = $('select[name="nota_fiscal_id"]');
+            select.empty().append('<option value="">Selecione...</option>');
+
+            data.forEach(function(nota) {
+                select.append('<option value="' + nota.id + '">NF ' + nota.numero_nf + ' - ' + nota.destinatario_nome + '</option>');
+            });
+        });
+    }
+
+    // Recarregar vinculos quando empresa mudar
+    $('select[name="empresa_id"]').change(function() {
+        var tipo = $('#vinculo_tipo').val();
+        if (tipo === 'obrigacao') {
+            carregarObrigacoes();
+        } else if (tipo === 'nota_fiscal') {
+            carregarNotasFiscais();
+        }
+    });
+});
+</script>
+@endsection
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fechar"></button>
             </div>
 

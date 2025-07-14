@@ -4,10 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\Activitylog\LogOptions;
 
 class Empresa extends Model
 {
-    use HasFactory;
+    use HasFactory, LogsActivity;
 
     protected $fillable = [
         'codigo_interno',
@@ -41,12 +45,12 @@ class Empresa extends Model
         'socios' => 'array',
     ];
 
-    public function matriz()
+    public function matriz(): BelongsTo
     {
         return $this->belongsTo(Empresa::class, 'matriz_id');
     }
 
-    public function filiais()
+    public function filiais(): HasMany
     {
         return $this->hasMany(Empresa::class, 'matriz_id');
     }
@@ -59,5 +63,13 @@ class Empresa extends Model
     public function notasFiscais()
     {
         return $this->hasMany(NotaFiscal::class);
+    }
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->logOnly(['razao_social', 'cnpj', 'status', 'email'])
+            ->logOnlyDirty()
+            ->dontSubmitEmptyLogs();
     }
 }

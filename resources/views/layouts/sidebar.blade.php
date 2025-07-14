@@ -82,6 +82,43 @@
                         <p>Notas Fiscais</p>
                     </a>
                 </li>
+
+                <li class="nav-item {{ request()->routeIs('logs.*') ? 'active' : '' }}">
+                    <a href="{{ route('logs.index') }}" class="nav-link {{ request()->routeIs('logs.*') ? 'active' : '' }}">
+                        <i class="nav-icon bi bi-clock-history"></i>
+                        <p>Logs de Atividade</p>
+                    </a>
+                </li>
+
+                <li class="nav-item has-treeview {{ request()->is('relatorios/*') ? 'menu-open' : '' }}">
+                    <a href="#" class="nav-link {{ request()->is('relatorios/*') ? 'active' : '' }}">
+                        <i class="nav-icon bi bi-bar-chart"></i>
+                        <p>
+                            Relatórios Avançados
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ route('relatorios.dashboard') }}" class="nav-link {{ request()->routeIs('relatorios.dashboard') ? 'active' : '' }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Dashboard</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('relatorios.obrigacoes-pendentes') }}" class="nav-link {{ request()->routeIs('relatorios.obrigacoes-pendentes') ? 'active' : '' }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Obrigações Pendentes</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('relatorios.documentos-categoria') }}" class="nav-link {{ request()->routeIs('relatorios.documentos-categoria') ? 'active' : '' }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Documentos por Categoria</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
             </ul>
             <!--end::Sidebar Menu-->
         </nav>

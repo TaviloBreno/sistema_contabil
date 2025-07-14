@@ -18,26 +18,29 @@ class UserSeeder extends Seeder
             return; // Já existem usuários, não criar novos
         }
 
-        User::create([
+        $admin = User::create([
             'name' => 'Admin Master',
             'email' => 'admin@admin.com',
             'password' => Hash::make('12345678'),
             'role' => 'admin',
         ]);
+        $admin->assignRole('admin');
 
-        User::create([
+        $gerente = User::create([
             'name' => 'Gerente Silva',
             'email' => 'gerente@empresa.com',
             'password' => Hash::make('12345678'),
             'role' => 'gerente',
         ]);
+        $gerente->assignRole('contador');
 
-        User::create([
-            'name' => 'Operador João',
-            'email' => 'joao@empresa.com',
+        $funcionario = User::create([
+            'name' => 'João Funcionário',
+            'email' => 'funcionario@empresa.com',
             'password' => Hash::make('12345678'),
-            'role' => 'operador',
+            'role' => 'funcionario',
         ]);
+        $funcionario->assignRole('funcionario');
 
         User::create([
             'name' => 'Operadora Ana',
