@@ -7,16 +7,34 @@ use Illuminate\Http\Request;
 
 class ConfiguracaoSistemaController extends Controller
 {
+    /**
+     * Exibe a tela de configurações agrupadas por grupo.
+     */
     public function index()
     {
-        $configuracoes = Configuracao::orderBy('chave')->get();
+        $configuracoes = Configuracao::all()->groupBy('grupo');
+
         return view('configuracoes.index', compact('configuracoes'));
     }
 
+    /**
+     * Salva as configurações.
+     */
     public function store(Request $request)
     {
-        foreach ($request->input('configuracoes', []) as $id => $valor) {
-            Configuracao::where('id', $id)->update(['valor' => $valor]);
+        $configs = $request->input('configuracoes', []);
+
+        foreach ($configs as $id => $valor) {
+            $config = Configuracao::find($id);
+
+            if ($config) {
+                // Se o tipo for booleano (checkbox), define como 0 ou 1
+                if ($config->tipo === 'boolean') {
+                    $valor = isset($valor) && ($valor === 'on' || $valor == 1 || $valor === true) ? 1 : 0;
+                }
+
+                $config->update(['valor' => $valor]);
+            }
         }
 
         return redirect()->back()->with('success', 'Configurações atualizadas com sucesso!');
