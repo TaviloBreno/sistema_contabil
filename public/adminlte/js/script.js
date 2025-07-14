@@ -20,7 +20,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const cnpj = this.value.replace(/\D/g, '');
             if (cnpj.length !== 14) return;
 
-            try {
                 const response = await fetch(`https://receitaws.com.br/v1/cnpj/${cnpj}`);
                 const data = await response.json();
 
@@ -32,10 +31,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 } else {
                     alert('CNPJ não encontrado.');
                 }
-            } catch (error) {
-                alert('Erro ao buscar dados do CNPJ.');
-                console.error(error);
-            }
         });
     }
 });
