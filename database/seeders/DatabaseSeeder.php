@@ -28,6 +28,7 @@ class DatabaseSeeder extends Seeder
             ObrigacaoSeeder::class,
             NotaFiscalSeeder::class,
             DocumentoSeeder::class,
+            ChatSeeder::class,
         ]);
     }
 }

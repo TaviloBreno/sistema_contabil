@@ -15,6 +15,7 @@ use App\Http\Controllers\NotaFiscalController;
 use App\Http\Controllers\DocumentoUploadController;
 use App\Http\Controllers\LogActivityController;
 use App\Http\Controllers\IntegracaoController;
+use App\Http\Controllers\ChatController;
 
 /*
 |--------------------------------------------------------------------------
@@ -68,6 +69,14 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/notas-fiscais/{notaFiscal}/cancelar', [NotaFiscalController::class, 'cancelar'])->name('notas-fiscais.cancelar');
     Route::get('/notas-fiscais/{notaFiscal}/xml', [NotaFiscalController::class, 'xml'])->name('notas-fiscais.xml');
     Route::get('/notas-fiscais/{notaFiscal}/danfe', [NotaFiscalController::class, 'danfe'])->name('notas-fiscais.danfe');
+
+    // Chat
+    Route::resource('chat', ChatController::class);
+    Route::post('/chat/{chat}/send-message', [ChatController::class, 'sendMessage'])->name('chat.send-message');
+    Route::get('/chat/{chat}/messages', [ChatController::class, 'getMessages'])->name('chat.get-messages');
+    Route::post('/chat/{chat}/mark-as-read', [ChatController::class, 'markAsRead'])->name('chat.mark-as-read');
+    Route::post('/chat/{chat}/leave', [ChatController::class, 'leave'])->name('chat.leave');
+    Route::post('/chat/private/{user}', [ChatController::class, 'getPrivateChat'])->name('chat.private');
 
     // Relatórios
     Route::get('relatorios', [RelatorioController::class, 'index'])->name('relatorios.index');

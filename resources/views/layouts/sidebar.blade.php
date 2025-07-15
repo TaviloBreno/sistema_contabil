@@ -78,8 +78,29 @@
 
                 <li class="nav-item {{ request()->routeIs('notas-fiscais.*') ? 'active' : '' }}">
                     <a href="{{ route('notas-fiscais.index') }}" class="nav-link {{ request()->routeIs('notas-fiscais.*') ? 'active' : '' }}">
-                        <i class="nav-icon bi bi-receipt"></i>
+                        <i class="nav-icon fas fa-receipt"></i>
                         <p>Notas Fiscais</p>
+                    </a>
+                </li>
+
+                <li class="nav-item {{ request()->routeIs('chat.*') ? 'active' : '' }}">
+                    <a href="{{ route('chat.index') }}" class="nav-link {{ request()->routeIs('chat.*') ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-comments"></i>
+                        <p>
+                            Chat
+                            @if(auth()->check())
+                                @php
+                                    $unreadCount = \App\Models\Chat::whereHas('participants', function($query) {
+                                        $query->where('user_id', auth()->id());
+                                    })->get()->sum(function($chat) {
+                                        return $chat->getUnreadCountForUser(auth()->user());
+                                    });
+                                @endphp
+                                @if($unreadCount > 0)
+                                    <span class="badge badge-danger right">{{ $unreadCount }}</span>
+                                @endif
+                            @endif
+                        </p>
                     </a>
                 </li>
 

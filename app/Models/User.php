@@ -64,4 +64,84 @@ class User extends Authenticatable
     {
         return $this->hasMany(Obrigacao::class);
     }
+
+    /**
+     * Relacionamento com chats criados pelo usuário
+     */
+    public function createdChats()
+    {
+        return $this->hasMany(Chat::class, 'created_by');
+    }
+
+    /**
+     * Relacionamento com chats que o usuário participa
+     */
+    public function chats()
+    {
+        return $this->belongsToMany(Chat::class, 'chat_participants')
+            ->withPivot(['joined_at', 'left_at', 'last_read_at', 'is_admin'])
+            ->withTimestamps();
+    }
+
+    /**
+     * Relacionamento com chats ativos
+     */
+    public function activeChats()
+    {
+        return $this->belongsToMany(Chat::class, 'chat_participants')
+            ->wherePivot('left_at', null)
+            ->withPivot(['joined_at', 'left_at', 'last_read_at', 'is_admin'])
+            ->withTimestamps();
+    }
+
+    /**
+     * Relacionamento com mensagens enviadas
+     */
+    public function chatMessages()
+    {
+        return $this->hasMany(ChatMessage::class);
+    }
+
+    /**
+     * Busca ou cria um chat privado entre dois usuários
+     */
+    public function getPrivateChatWith(User $user)
+    {
+        // Busca chat existente
+        $existingChat = Chat::private()
+            ->whereHas('participants', function ($query) {
+                $query->where('user_id', $this->id);
+            })
+            ->whereHas('participants', function ($query) use ($user) {
+                $query->where('user_id', $user->id);
+            })
+            ->first();
+
+        if ($existingChat) {
+            return $existingChat;
+        }
+
+        // Cria novo chat privado
+        $chat = Chat::create([
+            'type' => 'private',
+            'created_by' => $this->id,
+        ]);
+
+        $chat->addParticipant($this);
+        $chat->addParticipant($user);
+
+        return $chat;
+    }
+
+    /**
+     * Conta mensagens não lidas
+     */
+    public function getUnreadMessagesCount(): int
+    {
+        return $this->activeChats()
+            ->get()
+            ->sum(function ($chat) {
+                return $chat->getUnreadCountForUser($this);
+            });
+    }
 }
